@@ -473,3 +473,7 @@ a.block:hover h3 { color: var(--copper); }
   .ladder-name { font-size: 0.72rem; }
   .ladder { gap: 4px; }
 }
+
+/* Training audience: three equal columns, stacked on phones */
+@media (min-width: 821px) { .who { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 820px) { .who { grid-template-columns: minmax(0, 1fr); } }
