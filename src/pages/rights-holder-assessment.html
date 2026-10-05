@@ -1,26 +1,108 @@
 ---
 title: Rights Holder Effectiveness Assessment | Box Count
-description: A quick assessment of where your organisation sits on Box Count's Rights Holder Effectiveness Ladder.
+description: A 12-question diagnostic that places your organisation on Box Count's Rights Holder Effectiveness Ladder, from Inventory Seller to Industry Leader.
 path: /rights-holder-assessment
 slug: assessment
 ---
 <section class="wrap page-head">
   <div class="page-head-copy">
-    <h1>Where does your organisation sit?</h1>
-    <p class="page-lede">The Rights Holder Effectiveness Ladder</p>
+    <h1>How effective is your sponsorship operation?</h1>
+    <p class="page-lede">A 12-question diagnostic mapped to Box Count&rsquo;s Rights Holder Effectiveness Ladder.</p>
   </div>
   <svg class="play head-play" data-play="strategy"></svg>
 </section>
 <!--/masthead-->
 
-<section class="light">
-  <div class="wrap prose">
-    <p class="prose-lead">Box Count's proprietary Rights Holder Effectiveness Ladder applies established marketing effectiveness principles to how rights holders structure and deliver commercial partnerships. Every rights holder exists somewhere along this scale.</p>
-    <p>This quick assessment identifies your organisation's current position and the specific operational, strategic, and measurement capabilities that will strengthen your effectiveness culture, and ultimately increase the long-term commercial value of your partnerships.</p>
-    <!-- TOOL: paste the current assessment HTML here (from the Wix custom element), or load it as assets/ladder.html in an iframe -->
-    <div class="tool-slot">
-      <p class="tool-slot-label">Assessment tool</p>
-      <p>The live 12-question assessment moves across from Wix as-is once its current code is copied out of the Wix editor.</p>
+<section class="light rha" id="rha">
+  <div class="wrap">
+
+    <!-- Intro -->
+    <div class="rha-view" id="rha-intro">
+      <div class="rha-start">
+        <button class="button" type="button" id="rha-begin">Start the 5-minute review</button>
+        <p class="rha-note">12 questions, no sign-up. You&rsquo;ll get your position on the ladder and the questions worth asking next.</p>
+      </div>
+      <ol class="ladder" aria-label="The Rights Holder Effectiveness Ladder, five levels">
+        <li><span class="ladder-step"></span><span class="ladder-num">1</span><span class="ladder-name">Inventory Seller</span></li>
+        <li><span class="ladder-step"></span><span class="ladder-num">2</span><span class="ladder-name">Service Provider</span></li>
+        <li><span class="ladder-step"></span><span class="ladder-num">3</span><span class="ladder-name">Marketing Partner</span></li>
+        <li><span class="ladder-step"></span><span class="ladder-num">4</span><span class="ladder-name">Business Partner</span></li>
+        <li><span class="ladder-step"></span><span class="ladder-num">5</span><span class="ladder-name">Industry Leader</span></li>
+      </ol>
+      <div class="prose rha-body">
+        <p>Every rights holder operates somewhere on this scale. The five levels reflect how partnerships are structured, priced, measured and grown, from inventory sales at the bottom to a mature operating model at the top.</p>
+        <p>Where you sit shapes the commercial outcomes available to you: the price you can hold in renewal conversations, the evidence you can put in front of a sponsor&rsquo;s CFO, and the speed at which you can expand existing partnerships rather than chase new ones.</p>
+        <p>Built by Box Count, applying more than 15 years of senior brand-strategy experience across sport, culture and entertainment to how rights holders run their partnerships function.</p>
+      </div>
+    </div>
+
+    <!-- Questions -->
+    <div class="rha-view" id="rha-quiz" hidden>
+      <div class="rha-progress">
+        <p class="rha-count" aria-live="polite">Question <span id="rha-current">1</span> of <span id="rha-total">12</span></p>
+        <div class="rha-bar"><span id="rha-bar"></span></div>
+      </div>
+      <div class="rha-card" id="rha-card">
+        <h2 class="rha-question" id="rha-question" tabindex="-1"></h2>
+        <div class="rha-options" id="rha-options" role="radiogroup" aria-labelledby="rha-question"></div>
+      </div>
+      <div class="rha-nav">
+        <button class="rha-back" type="button" id="rha-back">Back</button>
+        <button class="button" type="button" id="rha-next" disabled>Next</button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="rha-view" id="rha-results" hidden>
+      <p class="rha-count">Level <span id="rha-level-num"></span> of 5</p>
+      <h2 class="rha-level" id="rha-level" tabindex="-1"></h2>
+      <p class="rha-desc" id="rha-desc"></p>
+
+      <ol class="ladder ladder-result" id="rha-ladder" aria-label="Your position on the ladder">
+        <li><span class="ladder-step"></span><span class="ladder-num">1</span><span class="ladder-name">Inventory Seller</span></li>
+        <li><span class="ladder-step"></span><span class="ladder-num">2</span><span class="ladder-name">Service Provider</span></li>
+        <li><span class="ladder-step"></span><span class="ladder-num">3</span><span class="ladder-name">Marketing Partner</span></li>
+        <li><span class="ladder-step"></span><span class="ladder-num">4</span><span class="ladder-name">Business Partner</span></li>
+        <li><span class="ladder-step"></span><span class="ladder-num">5</span><span class="ladder-name">Industry Leader</span></li>
+      </ol>
+
+      <div class="rha-questions">
+        <h3>The questions worth asking</h3>
+        <p>A self-assessment can place you on the ladder. Understanding exactly why you&rsquo;re there, and what it would take to move, requires a more structured look. These are the questions the Box Count effectiveness audit is designed to answer.</p>
+        <ul id="rha-recs"></ul>
+        <p>If you can answer all of these, you probably don&rsquo;t need us. If even one makes you pause, it&rsquo;s worth a conversation.</p>
+      </div>
     </div>
   </div>
 </section>
+
+<section class="dark rha-lead" id="rha-lead" hidden>
+  <div class="wrap split split-contact">
+    <div class="prose">
+      <h2 class="section-title">Find out what the ladder can&rsquo;t tell you</h2>
+      <p>The assessment gives you a position. A full audit gives you a structured, evidence-based review of how your partnerships function is set up, what it&rsquo;s producing, and where the specific gaps are between your current performance and what&rsquo;s commercially possible.</p>
+      <p>Leave your details and Rory will be in touch to talk through whether an audit is the right fit.</p>
+    </div>
+    <form class="contact-form" id="rha-form" action="https://formspree.io/f/mnjgdvnl" method="POST">
+      <input type="hidden" name="_subject" value="Rights Holder Assessment: audit enquiry">
+      <input type="hidden" name="source" value="Rights Holder Assessment">
+      <input type="hidden" id="rha-f-level" name="assessment_level">
+      <input type="hidden" id="rha-f-score" name="assessment_score">
+      <input type="hidden" id="rha-f-answers" name="assessment_answers">
+      <div class="field-row">
+        <div class="field"><label for="rha-name">Name</label><input id="rha-name" name="name" autocomplete="name" required></div>
+        <div class="field"><label for="rha-email">Work email</label><input id="rha-email" name="email" type="email" autocomplete="email" required></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label for="rha-org">Organisation</label><input id="rha-org" name="organisation" autocomplete="organization" required></div>
+        <div class="field"><label for="rha-role">Job title <span class="optional">(optional)</span></label><input id="rha-role" name="job_title" autocomplete="organization-title"></div>
+      </div>
+      <div class="field"><label for="rha-phone">Phone <span class="optional">(optional)</span></label><input id="rha-phone" name="phone" type="tel" autocomplete="tel"></div>
+      <div class="field"><label for="rha-challenge">What&rsquo;s your biggest sponsorship challenge right now?</label><textarea id="rha-challenge" name="challenge" rows="4"></textarea></div>
+      <button class="button" type="submit" id="rha-submit">Talk to us about the audit</button>
+      <p class="form-status" id="rha-status" role="status"></p>
+    </form>
+  </div>
+</section>
+
+<script src="assessment.js"></script>
