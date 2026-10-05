@@ -258,7 +258,8 @@ a.block:hover h3 { color: var(--copper); }
 .price-num { font-family: var(--font); font-weight: 700; font-size: 2.6rem; line-height: 1; letter-spacing: -0.03em; color: var(--ink); }
 .dark .price-num { color: var(--white); }
 .price-unit { font-family: var(--font); font-size: 0.9rem; color: var(--dim-light); }
-.buy-facts { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--grey-2); }
+.buy-facts { margin: 0; display: grid; gap: 0; }
+.buy-facts div:first-child { padding-top: 0; }
 .buy-facts div { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 12px; padding-block: 10px; border-bottom: 1px solid var(--grey-2); }
 .buy-facts dt { font-family: var(--font); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim-light); padding-top: 3px; }
 .buy-facts dd { margin: 0; font-size: 0.95rem; }
