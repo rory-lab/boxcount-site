@@ -41,27 +41,40 @@ def render(meta, body):
 
 
 def latest_substack(n=4):
-    """Pull the newest posts from the Substack feed at build time. Returns HTML, or None if the feed can't be reached."""
+    """Pull the newest posts from the Substack feed at build time: one featured post with its cover image,
+    then a short list. Returns HTML, or None if the feed can't be reached (the hand-written fallback stays)."""
     import urllib.request, xml.etree.ElementTree as ET, email.utils, html as h
     try:
-        with urllib.request.urlopen("https://thesponsorshipeffect.substack.com/feed", timeout=8) as r:
+        req = urllib.request.Request("https://thesponsorshipeffect.substack.com/feed", headers={"User-Agent": "boxcount.co build"})
+        with urllib.request.urlopen(req, timeout=10) as r:
             root = ET.fromstring(r.read())
     except Exception:
         return None
-    items = []
+    posts = []
     for it in root.iter("item"):
-        title, link, date = it.findtext("title"), it.findtext("link"), it.findtext("pubDate")
+        title, link = it.findtext("title") or "", it.findtext("link") or ""
+        sub = (it.findtext("description") or "").strip()
+        if sub and sub[-1] not in ".?!":
+            sub += "."
+        enc = it.find("enclosure")
+        img = enc.get("url") if enc is not None and (enc.get("type") or "").startswith("image") else ""
         try:
-            d = email.utils.parsedate_to_datetime(date)
+            d = email.utils.parsedate_to_datetime(it.findtext("pubDate"))
             date = f"{d.day} {d.strftime('%B %Y')}"
         except Exception:
             date = ""
-        items.append(f'        <li><a href="{h.escape(link)}" rel="noopener"><span class="post-title">{h.escape(title)}</span><span class="post-date">{date}</span></a></li>')
-        if len(items) == n:
+        posts.append((h.escape(title), h.escape(link), date, h.escape(sub), h.escape(img)))
+        if len(posts) == n:
             break
-    if not items:
+    if not posts:
         return None
-    return '<ul class="posts">\n' + "\n".join(items) + '\n      </ul>'
+    t, u, d, sub, img = posts[0]
+    pic = f'<img src="{img}" alt="" loading="lazy">' if img else ""
+    feature = (f'<a class="post-feature" href="{u}" rel="noopener">\n        {pic}\n        <span class="post-date">{d}</span>\n'
+               f'        <h3 class="post-feature-title">{t}</h3>\n        <p>{sub}</p>\n      </a>')
+    items = "\n".join(f'        <li><a href="{u}" rel="noopener"><span class="post-title">{t}</span><span class="post-sub">{sub}</span><span class="post-date">{d}</span></a></li>'
+                      for t, u, d, sub, img in posts[1:])
+    return feature + '\n      <ul class="posts">\n' + items + '\n      </ul>'
 
 
 def rebase(html, prefix):
