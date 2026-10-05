@@ -36,7 +36,7 @@ h1, h2, h3 { text-wrap: balance; }
 .skip:focus { left: 16px; top: 16px; background: var(--white); color: var(--ink); padding: 8px 12px; z-index: 20; }
 .wrap { max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
 
-h1, h2, h3, .big-num { font-family: "Sora", var(--font) !important; font-weight: 700 !important; }
+h1, h2, h3, .big-num { font-family: var(--font) !important; font-weight: 700 !important; }
 
 /* ---------- Playbook diagrams (logo X and O) ---------- */
 .play { display: block; overflow: visible; }
@@ -83,7 +83,7 @@ h1, h2, h3, .big-num { font-family: "Sora", var(--font) !important; font-weight:
 .hero-copy { width: 100%; max-width: 42rem; display: grid; justify-items: start; gap: 20px; text-align: left; }
 .hero-home .hero-copy .hero-lede, .hero-home .hero-copy .hero-title { margin-inline: 0; }
 .hero-copy .button { margin-top: 8px; }
-.hero-title { font-family: "Sora", var(--font); font-weight: 700; color: var(--copper); font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.5rem); line-height: 1.2; letter-spacing: -0.02em; max-width: 24ch; margin-inline: auto; }
+.hero-title { font-family: var(--font); font-weight: 700; color: var(--copper); font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.5rem); line-height: 1.2; letter-spacing: -0.02em; max-width: 24ch; margin-inline: auto; }
 
 /* ---------- Motion (subtle) ---------- */
 @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
@@ -251,7 +251,7 @@ a.block:hover h3 { color: var(--copper); }
 .hero-points li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 12px; }
 .buy-card { background: #fff; border: 1px solid var(--grey-2); padding: 28px; display: grid; gap: 18px; position: sticky; top: 24px; animation: rise 0.8s 0.2s cubic-bezier(.2, .7, .2, 1) both; }
 .price { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin: 0; }
-.price-num { font-family: "Sora", var(--font); font-weight: 700; font-size: 2.6rem; line-height: 1; letter-spacing: -0.03em; color: var(--ink); }
+.price-num { font-family: var(--font); font-weight: 700; font-size: 2.6rem; line-height: 1; letter-spacing: -0.03em; color: var(--ink); }
 .dark .price-num { color: var(--white); }
 .price-unit { font-family: var(--font); font-size: 0.9rem; color: var(--dim-light); }
 .buy-facts { margin: 0; display: grid; gap: 0; border-top: 1px solid var(--grey-2); }
@@ -279,7 +279,7 @@ a.block:hover h3 { color: var(--copper); }
 .order { margin-top: 28px; background: #fff; border: 1px solid var(--grey-2); padding: 20px 24px; display: grid; }
 .order-title { font-size: 1.05rem; margin-bottom: 10px; }
 .order-row { display: flex; justify-content: space-between; gap: 16px; padding-block: 10px; border-top: 1px solid var(--grey-2); font-size: 0.95rem; font-variant-numeric: tabular-nums; }
-.order-total { font-family: "Sora", var(--font); font-weight: 700; font-size: 1.15rem; }
+.order-total { font-family: var(--font); font-weight: 700; font-size: 1.15rem; }
 .steps { list-style: none; padding: 0; margin: 20px 0 0; display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: var(--font); font-size: 0.85rem; color: var(--dim-light); }
 .steps li { display: flex; align-items: center; gap: 8px; }
 .steps span { width: 22px; height: 22px; display: grid; place-items: center; border: 1.5px solid currentColor; border-radius: 50%; font-size: 0.72rem; font-weight: 600; }
@@ -315,7 +315,7 @@ a.block:hover h3 { color: var(--copper); }
 .cover { aspect-ratio: 210 / 297; max-width: 100%; padding: 22px; display: flex; flex-direction: column; gap: 12px; border: 1px solid var(--grey-2); transition: transform 0.35s cubic-bezier(.2, .7, .2, 1); }
 .report:hover .cover { transform: translateY(-4px); }
 .cover-pub { font-family: var(--font); font-size: 0.72rem; font-weight: 500; }
-.cover-title { font-family: "Sora", var(--font); font-weight: 700; font-size: clamp(1.2rem, 0.9rem + 1vw, 1.7rem); line-height: 1.1; letter-spacing: -0.02em; }
+.cover-title { font-family: var(--font); font-weight: 700; font-size: clamp(1.2rem, 0.9rem + 1vw, 1.7rem); line-height: 1.1; letter-spacing: -0.02em; }
 .cover-year { margin-top: auto; font-family: var(--font); font-size: 0.8rem; }
 .cover-dark { background: var(--charcoal); color: var(--white); border-color: var(--charcoal); }
 .cover-dark .cover-title { color: #d0703f; }
@@ -418,7 +418,7 @@ a.block:hover h3 { color: var(--copper); }
 .ladder-step { display: block; background: var(--grey-2); height: calc(var(--n) * clamp(26px, 4.4vw, 52px)); transition: background 0.5s ease, transform 0.5s ease; transform-origin: bottom; }
 .ladder li:nth-child(1) { --n: 1; } .ladder li:nth-child(2) { --n: 2; } .ladder li:nth-child(3) { --n: 3; } .ladder li:nth-child(4) { --n: 4; } .ladder li:nth-child(5) { --n: 5; }
 .ladder li:nth-child(5) .ladder-step { background: var(--charcoal); }
-.ladder-num { font: 700 1.1rem "Sora", var(--font); color: var(--copper); line-height: 1; }
+.ladder-num { font: 700 1.1rem var(--font); color: var(--copper); line-height: 1; }
 .ladder-name { font: 500 0.88rem/1.3 var(--font); }
 .ladder-result .ladder-step { background: var(--grey); }
 .ladder-result li:not(.reached) .ladder-step { background: var(--grey); }
