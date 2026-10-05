@@ -489,3 +489,5 @@ a.block:hover h3 { color: var(--copper); }
 .quote figcaption { margin-top: 24px; display: grid; gap: 2px; font-family: var(--font); font-size: 0.95rem; }
 .quote figcaption strong { font-weight: 700; }
 .quote figcaption span { color: var(--dim-light); }
+.trainer-quote { margin-top: clamp(40px, 6vw, 72px); padding-top: clamp(32px, 5vw, 56px); border-top: 1px solid var(--charcoal-2); }
+.dark .quote figcaption span { color: var(--dim-dark); }
