@@ -1,0 +1,9 @@
+{
+  // Cloudflare Workers static site. Build with `python3 build.py`, then `npx wrangler deploy` uploads dist/.
+  "name": "boxcount-site",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  }
+}

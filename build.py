@@ -1,0 +1,88 @@
+#!/usr/bin/env python3
+"""Build boxcount.co.
+
+Each file in src/pages is a page body with a short front-matter block.
+src/layout.html wraps every page, so the header and footer live in one place.
+Everything in src/static is copied across untouched.
+
+  python3 build.py            -> dist/     (deploy this)
+  python3 build.py --preview  -> preview/  (Claude artifact preview: index page without its <html>/<head> wrapper)
+"""
+import pathlib, re, shutil, sys
+
+ROOT = pathlib.Path(__file__).parent
+SRC = ROOT / "src"
+preview = "--preview" in sys.argv
+OUT = ROOT / ("preview" if preview else "dist")
+
+layout = (SRC / "layout.html").read_text(encoding="utf-8")
+
+
+def parse(text):
+    m = re.match(r"---\n(.*?)\n---\n(.*)", text, re.S)
+    meta = {}
+    for line in m.group(1).splitlines():
+        k, _, v = line.partition(":")
+        meta[k.strip()] = v.strip()
+    return meta, m.group(2)
+
+
+def render(meta, body):
+    # Everything above <!--/masthead--> sits in the copper masthead with the header
+    masthead, _, content = body.partition("<!--/masthead-->")
+    if not content:
+        masthead, content = "", body
+    html = layout
+    for key in ("title", "description", "path", "slug"):
+        html = html.replace("{{" + key + "}}", meta.get(key, ""))
+    return html.replace("{{masthead}}", masthead.rstrip()).replace("{{content}}", content.strip())
+
+
+def latest_substack(n=4):
+    """Pull the newest posts from the Substack feed at build time. Returns HTML, or None if the feed can't be reached."""
+    import urllib.request, xml.etree.ElementTree as ET, email.utils, html as h
+    try:
+        with urllib.request.urlopen("https://thesponsorshipeffect.substack.com/feed", timeout=8) as r:
+            root = ET.fromstring(r.read())
+    except Exception:
+        return None
+    items = []
+    for it in root.iter("item"):
+        title, link, date = it.findtext("title"), it.findtext("link"), it.findtext("pubDate")
+        try:
+            d = email.utils.parsedate_to_datetime(date)
+            date = f"{d.day} {d.strftime('%B %Y')}"
+        except Exception:
+            date = ""
+        items.append(f'        <li><a href="{h.escape(link)}" rel="noopener"><span class="post-title">{h.escape(title)}</span><span class="post-date">{date}</span></a></li>')
+        if len(items) == n:
+            break
+    if not items:
+        return None
+    return '<ul class="posts">\n' + "\n".join(items) + '\n      </ul>'
+
+
+def strip_wrapper(html):
+    """Artifact pages get their own document wrapper, so keep only head tags + body content."""
+    head = re.search(r"<!--HEAD-->(.*?)<!--/HEAD-->", html, re.S).group(1)
+    body_tag = re.search(r"<body([^>]*)>", html).group(1)
+    body = re.search(r"<body[^>]*>(.*)</body>", html, re.S).group(1)
+    cls = re.search(r'class="([^"]*)"', body_tag).group(1)
+    return head.strip() + f"\n<script>document.body.className='{cls}';</script>\n" + body.strip() + "\n"
+
+
+if OUT.exists():
+    shutil.rmtree(OUT)
+shutil.copytree(SRC / "static", OUT)
+
+for page in sorted((SRC / "pages").glob("*.html")):
+    meta, body = parse(page.read_text(encoding="utf-8"))
+    html = render(meta, body)
+    if "<!--SUBSTACK-->" in html:
+        live = latest_substack()
+        if live:   # otherwise keep the hand-picked list already in the page
+            html = re.sub(r"<!--SUBSTACK-->.*?<!--/SUBSTACK-->", live, html, flags=re.S)
+    if preview and page.name == "index.html":
+        html = strip_wrapper(html)
+    (OUT / page.name).write_text(html, encoding="utf-8")
+    print("built", page.name)
