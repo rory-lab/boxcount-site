@@ -1,6 +1,13 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
+<script>
+  /* Consent Mode: nothing is stored until the visitor accepts analytics cookies */
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500});
+  try { if (localStorage.getItem('bc-consent') === 'granted') gtag('consent', 'update', {analytics_storage: 'granted'}); } catch (e) {}
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-PW9XH1YKN7"></script>
 <script>
@@ -81,7 +88,7 @@
       <a href="https://www.pledge1percent.org/" rel="noopener"><img src="assets/pledge-1-percent.png" width="400" height="415" alt="Pledge 1% member" loading="lazy"></a>
       <a href="https://www.gov.uk/government/collections/disability-confident-campaign" rel="noopener"><img src="assets/disability-confident.png" width="600" height="276" alt="Disability Confident Committed employer" loading="lazy"></a>
     </div>
-    <p class="footer-legal"><a href="privacy-policy.html">Privacy policy</a><span>&copy; Box Count Ltd</span></p>
+    <p class="footer-legal"><a href="privacy-policy.html">Privacy policy</a><button class="link-button" type="button" data-cookie-settings>Cookie settings</button><span>&copy; Box Count Ltd</span></p>
   </div>
 </footer>
 <script src="site.js"></script>

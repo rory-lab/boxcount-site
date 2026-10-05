@@ -295,4 +295,47 @@
         .finally(function () { button.disabled = false; button.innerHTML = label; });
     });
   }
+
+  /* ---------- Cookie consent (Google Analytics only runs with cookies once accepted) ---------- */
+  (function () {
+    var KEY = 'bc-consent', bar;
+    function stored() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function clearGA() {
+      document.cookie.split(';').forEach(function (c) {
+        var name = c.split('=')[0].trim();
+        if (name.indexOf('_ga') === 0) {
+          ['', '; domain=.boxcount.co', '; domain=boxcount.co', '; domain=www.boxcount.co'].forEach(function (d) {
+            document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + d;
+          });
+        }
+      });
+    }
+    function choose(value) {
+      try { localStorage.setItem(KEY, value); } catch (e) {}
+      if (window.gtag) gtag('consent', 'update', {analytics_storage: value});
+      if (value === 'denied') clearGA();
+      hide();
+    }
+    function hide() { if (bar) { bar.hidden = true; document.body.classList.remove('consent-open'); } }
+    function show() {
+      if (!bar) {
+        bar = document.createElement('div');
+        bar.className = 'consent';
+        bar.setAttribute('role', 'region');
+        bar.setAttribute('aria-label', 'Cookie choice');
+        var root = document.querySelector('link[rel=stylesheet][href$="styles.css"]').getAttribute('href').replace('styles.css', '');
+        bar.innerHTML = '<div class="wrap consent-inner"><p>We use Google Analytics cookies to see how people use this site. They are only set if you accept. <a href="' + root + 'privacy-policy">Privacy policy</a></p>' +
+          '<div class="consent-actions"><button type="button" class="button" data-consent="granted">Accept</button><button type="button" class="button button-ghost" data-consent="denied">Reject</button></div></div>';
+        bar.addEventListener('click', function (e) {
+          var b = e.target.closest('[data-consent]');
+          if (b) choose(b.getAttribute('data-consent'));
+        });
+        document.body.appendChild(bar);
+      }
+      bar.hidden = false;
+      document.body.classList.add('consent-open');
+    }
+    if (!stored()) show();
+    document.querySelectorAll('[data-cookie-settings]').forEach(function (b) { b.addEventListener('click', show); });
+  })();
 })();
