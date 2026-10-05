@@ -62,6 +62,16 @@ def latest_substack(n=4):
     return '<ul class="posts">\n' + "\n".join(items) + '\n      </ul>'
 
 
+def rebase(html, prefix):
+    """Pages in a subfolder: point relative links (styles, scripts, images, other pages) back up to the site root."""
+    def fix(m):
+        attr, q, url = m.group(1), m.group(2), m.group(3)
+        if re.match(r"(?:[a-z]+:|//|/|#|\?|$)", url):
+            return m.group(0)
+        return f"{attr}={q}{prefix}{url}{q}"
+    return re.sub(r'\b(href|src|action)=(["\'])([^"\']*)\2', fix, html)
+
+
 def strip_wrapper(html):
     """Artifact pages get their own document wrapper, so keep only head tags + body content."""
     head = re.search(r"<!--HEAD-->(.*?)<!--/HEAD-->", html, re.S).group(1)
@@ -82,7 +92,13 @@ for page in sorted((SRC / "pages").glob("*.html")):
         live = latest_substack()
         if live:   # otherwise keep the hand-picked list already in the page
             html = re.sub(r"<!--SUBSTACK-->.*?<!--/SUBSTACK-->", live, html, flags=re.S)
+    out = meta.get("out") or page.name
+    depth = out.count("/")
+    if depth:
+        html = rebase(html, "../" * depth)
     if preview and page.name == "index.html":
         html = strip_wrapper(html)
-    (OUT / page.name).write_text(html, encoding="utf-8")
-    print("built", page.name)
+    dest = OUT / out
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(html, encoding="utf-8")
+    print("built", out)
