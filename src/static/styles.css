@@ -110,7 +110,11 @@ a.block:hover h3 { transform: translateX(4px); }
 .page-head-short { grid-template-columns: minmax(0, 1fr); }
 .page-head h1 { font-weight: 600; letter-spacing: -0.02em; line-height: 1.12; font-size: clamp(2.1rem, 1.4rem + 2.6vw, 3.6rem); max-width: 18ch; }
 .page-lede { margin-top: 24px; font-size: clamp(1rem, 0.95rem + 0.3vw, 1.2rem); line-height: 1.6; max-width: 34rem; }
-.head-play { width: 100%; height: auto; color: var(--ink); --x: var(--copper); --o: var(--ink); --r: var(--ink); --hl: var(--copper); }
+/* Masthead plays: wide, sitting behind the layout so the masthead keeps its height */
+.masthead { overflow-x: clip; }
+.page-head { grid-template-columns: minmax(0, 1fr); }
+.page-head-copy { position: relative; z-index: 1; }
+.head-play { position: absolute; z-index: 0; pointer-events: none; width: min(56vw, 820px); aspect-ratio: 400 / 150; right: -3%; top: 50%; transform: translateY(-46%); height: auto; color: var(--ink); --x: var(--copper); --o: var(--ink); --r: var(--ink); --hl: var(--copper); }
 
 /* ---------- Buttons and links ---------- */
 .button { display: inline-block; background: var(--copper); color: #fff; font: 500 0.9rem var(--font); letter-spacing: 0.02em; text-decoration: none; border: 0; padding: 14px 26px; cursor: pointer; white-space: nowrap; transition: background 0.2s ease; }
@@ -382,7 +386,7 @@ a.block:hover h3 { color: var(--copper); }
   .hero-foot { grid-template-columns: minmax(0, 1fr); }
   .hero-foot .button { justify-self: start; }
   .page-head { grid-template-columns: minmax(0, 1fr); }
-  .head-play { max-width: 260px; order: -1; }
+  .head-play { position: static; transform: none; width: 100%; order: -1; }
   .versus { grid-template-columns: minmax(0, 1fr); }
   .split-even, .days, .course-hero, .book-inner, .o-grid { grid-template-columns: minmax(0, 1fr); }
   .buy-card { position: static; }

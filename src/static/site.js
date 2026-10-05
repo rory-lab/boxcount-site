@@ -67,6 +67,32 @@
   // One move each: a single X and one or two O's.
   // r = route with arrow, h = highlighted route, b = block (ends in a bar), hb = highlighted block, c: true = curved
   var PLAYS = {
+    // Dig: push vertical to get the linebacker to bail, then break flat across the field behind him
+    dig: { vb: [400, 150], S: 20, items: [
+      { x: [[196, 92]] },
+      { o: [[56, 128]] },
+      { h: [[56, 113], [56, 52], [356, 52]] }
+    ] },
+    // Sweep: the guard pulls and kicks out the edge defender, the back bends round the outside
+    sweep: { vb: [400, 150], S: 20, items: [
+      { x: [[292, 62]] },
+      { o: [[60, 130], [136, 104]] },
+      { b: [[151, 102], [232, 96], [277, 76]] },
+      { h: [[75, 132], [190, 134], [296, 122], [338, 82], [348, 14]], c: true }
+    ] },
+    // Screen: the back drifts out to the flat behind the line, a lineman releases to clear the way
+    screen: { vb: [400, 150], S: 20, items: [
+      { x: [[112, 60]] },
+      { o: [[300, 122], [190, 102]] },
+      { b: [[176, 96], [129, 72]] },
+      { h: [[286, 126], [180, 132], [96, 120], [68, 76], [64, 14]], c: true }
+    ] },
+    // Drag: a shallow cross underneath the coverage, running away from the defender
+    drag: { vb: [400, 150], S: 20, items: [
+      { x: [[150, 44]] },
+      { o: [[40, 124]] },
+      { h: [[52, 114], [90, 94], [360, 94]] }
+    ] },
     // Go route: outside release past the corner, then vertical
     strategy: { vb: [240, 150], S: 20, items: [
       { x: [[96, 70]] },
