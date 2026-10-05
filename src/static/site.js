@@ -67,6 +67,13 @@
   // One move each: a single X and one or two O's.
   // r = route with arrow, h = highlighted route, b = block (ends in a bar), hb = highlighted block, c: true = curved
   var PLAYS = {
+    // Mesh: two shallow crosses run past each other, rubbing the linebacker off the receiver
+    mesh: { vb: [400, 150], S: 20, items: [
+      { x: [[200, 34]] },
+      { o: [[44, 126], [356, 126]] },
+      { r: [[344, 114], [326, 104], [56, 80]] },
+      { h: [[56, 114], [74, 104], [346, 70]] }
+    ] },
     // Dig: push vertical to get the linebacker to bail, then break flat across the field behind him
     dig: { vb: [400, 150], S: 20, items: [
       { x: [[196, 92]] },

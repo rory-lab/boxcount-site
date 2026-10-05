@@ -316,8 +316,9 @@ a.block:hover h3 { color: var(--copper); }
 .report h3 { font-size: 1.2rem; line-height: 1.25; }
 .report-meta { font-family: var(--font); font-size: 0.88rem; color: var(--copper-ink); }
 .report-soon { font-size: 0.92rem; color: var(--dim-light); font-style: italic; }
-.cover { aspect-ratio: 210 / 297; max-width: 100%; padding: 22px; display: flex; flex-direction: column; gap: 12px; border: 1px solid var(--grey-2); transition: transform 0.35s cubic-bezier(.2, .7, .2, 1); }
-.report:hover .cover { transform: translateY(-4px); }
+.cover { aspect-ratio: 4 / 3; max-width: 100%; display: grid; place-items: center; container-type: size; background: var(--grey); transition: transform 0.35s cubic-bezier(.2, .7, .2, 1); }
+.cover img { max-width: 84cqw; max-height: 84cqh; width: auto; height: auto; box-shadow: 0 10px 24px rgba(23, 24, 26, 0.18), 0 2px 5px rgba(23, 24, 26, 0.12); transition: transform 0.35s cubic-bezier(.2, .7, .2, 1); }
+.report:hover .cover img { transform: translateY(-4px); }
 .cover-pub { font-family: var(--font); font-size: 0.72rem; font-weight: 500; }
 .cover-title { font-family: var(--font); font-weight: 700; font-size: clamp(1.2rem, 0.9rem + 1vw, 1.7rem); line-height: 1.1; letter-spacing: -0.02em; }
 .cover-year { margin-top: auto; font-family: var(--font); font-size: 0.8rem; }
@@ -392,7 +393,7 @@ a.block:hover h3 { color: var(--copper); }
   .buy-card { position: static; }
   .case { grid-template-columns: minmax(0, 1fr); }
   .reports { grid-template-columns: minmax(0, 1fr); }
-  .cover { max-width: 240px; }
+  .cover { max-width: 420px; }
   .sticky-buy p strong { display: none; }
   .footer-inner { grid-template-columns: minmax(0, 1fr); }
 }
