@@ -114,6 +114,7 @@ a.block:hover h3 { transform: translateX(4px); }
 .masthead { overflow-x: clip; }
 .page-head { grid-template-columns: minmax(0, 1fr); }
 .page-head-copy { position: relative; z-index: 1; }
+.page-head:has(.head-play) { min-height: calc(min(56vw, 820px) * 0.375 + 72px); }
 .head-play { position: absolute; z-index: 0; pointer-events: none; width: min(56vw, 820px); aspect-ratio: 400 / 150; right: -3%; top: 50%; transform: translateY(-46%); height: auto; color: var(--ink); --x: var(--copper); --o: var(--ink); --r: var(--ink); --hl: var(--copper); }
 
 /* ---------- Buttons and links ---------- */
@@ -390,6 +391,7 @@ a.block:hover h3 { color: var(--copper); }
   .hero-foot .button { justify-self: start; }
   .page-head { grid-template-columns: minmax(0, 1fr); }
   .head-play { position: static; transform: none; width: 100%; order: -1; }
+  .page-head:has(.head-play) { min-height: 0; }
   .versus { grid-template-columns: minmax(0, 1fr); }
   .split-even, .days, .course-hero, .book-inner, .o-grid { grid-template-columns: minmax(0, 1fr); }
   .buy-card { position: static; }
